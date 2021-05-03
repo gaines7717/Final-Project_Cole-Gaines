@@ -1,6 +1,9 @@
 ﻿FINAL PROJECT REPORT
+ 
 BY COLE GAINES
+
 TOPIC APPROVAL: DEFAULT TOPIC
+
 INTRODUCTION
         For my final project, I created a graphing application (the default project suggested). This application uses user inputs (x and y position edit
 boxes,graphing color radio buttons, line/marker style radio buttons, plot title edit box, x-axis title edit box, y-axis title edit box, reset graph and
