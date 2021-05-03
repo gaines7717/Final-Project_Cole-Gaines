@@ -63,11 +63,6 @@ gui.yEdit = uicontrol('style','edit','units','normalized','position',[.17 .08 .1
 gui.yText = uicontrol('style','text','units','normalized','position',[.01 .08 .15 0.05],...
     'string','y-position');
 
-% gui.yEdit = uicontrol('style','edit','position',[90 30 80 20],...
-%     'fontsize',12, 'fontweight','bold','callback',{@yPositionInput});
-% gui.yText = uicontrol('style','text','position',[10 30 80 20],...
-%     'string','y-position');
-
 % Sets up a push style button that will 'reset' the graph and other user inputs; this
 % means that the graph will be cleared and the input edit boxes will be
 % cleared. In order to do this, gui.resetButton has a callback command to
@@ -125,9 +120,9 @@ gui.buttonGroup3Text = uicontrol('style','text','units','normalized','position',
 gui.closeFig = uicontrol('style','push','units','normalized', 'position',[.015, .92, .2, .07], 'string','QUIT','FontSize',15, 'callback' ,{@closeFigure});
 end
 
-% The following function was meant to be a callback function based on
-% gui.buttonGroup2. However, I ran into may errors and thus
-% used a differnet solution
+% The following function is a callback fucntion of the radio buttion group 2; this function
+% finds the values of each radio button within the button group and makes the global
+% plot variable's linestyle match the determination of the user.
             function [ ] = LineSelect (hObject,~)
              global gui;
             if gui.r11.Value
@@ -145,9 +140,9 @@ end
             end
     end
 
-% The following function was meant to be a callback function based on
-% gui.buttonGroup3. However, I ran into may errors and thus
-% used a differnet solution
+% The following function is a callback fucntion of the radio buttion group 3; this function
+% finds the values of each radio button within the button group and makes the global
+% plot variable's color match the determination of the user.
 function [ ] = ColorSelect (hObject,~)
             global gui;
               if gui.r21.Value
