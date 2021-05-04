@@ -80,13 +80,13 @@ gui.graphButton = uicontrol('style','push','units','normalized', 'position',[.72
 % callback functions to allow the user to change the xAxis label, yAxis
 % label, and the plot title.
 % Edit Box for the X-Axis name; also, this gui includes a callback to xAxisName
-gui.xAxis = uicontrol('style','edit','units','normalized','position',[.68 .14 .3 .05],...
+gui.xAxis = uicontrol('style','edit','units','normalized','position',[.68 .12 .3 .05],...
     'fontsize',12, 'fontweight','bold','string','X-Axis Name: ','callback',{@xAxisName});
 % Edit Box for the Y-Axis name; also, this gui includes a callback to yAxisName
-gui.yAxis = uicontrol('style','edit','units','normalized','position',[.68 .19 .3 .05],...
+gui.yAxis = uicontrol('style','edit','units','normalized','position',[.68 .17 .3 .05],...
     'fontsize',12, 'fontweight','bold','string','Y-Axis Name: ', 'callback',{@yAxisName});
 % Edit Box for the title name; also, this gui includes a callback to titleName
-gui.Title = uicontrol('style','edit','units','normalized','position',[.68 .24 .3 .05],...
+gui.Title = uicontrol('style','edit','units','normalized','position',[.68 .22 .3 .05],...
     'fontsize',12, 'fontweight','bold','string','Title Name: ', 'callback',{@titleName});
 
 % The following code sets up a button group with 5 radio-style buttons so
@@ -127,8 +127,8 @@ end
 % plot variable's linestyle match the determination of the user.
             function [ ] = LineSelect (hObject,~)
              global gui;
-            if gui.r11.Value
-            gui.plotFinal.Marker = 'o';
+            if gui.r11.Value     % Checks whether gui.r11 has been selected by the user (or is already the selected input)
+            gui.plotFinal.Marker = 'o';    % changes the marker/line style (in this case the marker style) based on the above if statement)
             gui.plotFinal.LineStyle = 'none';
         elseif gui.r12.Value
              gui.plotFinal.Marker = '*';
@@ -147,8 +147,8 @@ end
 % plot variable's color match the determination of the user.
 function [ ] = ColorSelect (hObject,~)
             global gui;
-              if gui.r21.Value
-                gui.plotFinal.Color = 'b';
+              if gui.r21.Value    %Checks the value of gui.r21 to determine whether it is the selected input for button group 3
+                gui.plotFinal.Color = 'b';   % changes the plot color based on the if statement found above it.
             elseif gui.r22.Value
                  gui.plotFinal.Color = 'r';
             elseif gui.r23.Value
@@ -160,7 +160,8 @@ end
                     % (a function meant to set the line style and line/point color) based on
                     % what radio buttons were pushed in buttonGroup2 and buttonGroup3. It
                     % didn't work as expected, though, so I moved onto the now operating
-                    % solution.
+                    % solution. It wasn't necessary to include, but I thought to showed my
+                    % progress and development throughout my project.
                                 % switch gui.ButtonGroup2.SelectedObject.Text
                                 %     case 'r11'
                                 %         gui.plotFinal.Color = 'b'; 
@@ -213,19 +214,20 @@ end
 % numbers apart based on the commas or spaces present). Finally, the
 % function turns the entered string (which has been put into cell arrays)
 % into a 'double' (integers).
+
 function [ ] = xPositionInput (hObject, ~, ~)
    global gui;
-    strX = get(hObject, 'string');
-    checkLetters1 = regexp(strX,'[^0-9\.,\- ]','match');
+    strX = get(hObject, 'string');    % gets the string from the X posiiton edit box
+    checkLetters1 = regexp(strX,'[^0-9\.,\- ]','match');  %checks whether there are any string values other than those listed
     if numel(checkLetters1) > 0
-            msgbox('X and Y Inputs may only contatin numbers, commas, periods, and spaces!', 'Input Error','error','modal')
+            msgbox('X and Y Inputs may only contatin numbers, commas, periods, negative signs, and spaces!', 'Input Error','error','modal') % Displays an error if there are any characters other than those listed
     end
-    newStrX =  regexprep(strX,'[^0-9+\.\-]',' ');
-    newStr2X =  regexprep(newStrX,' {2,}',' ');
-    spaceBeginningX = regexprep(newStr2X,'^ ','');
-    spaceEndX = regexprep(spaceBeginningX,' $','');
-    gui.strX3 = regexp(spaceEndX,'[^0-9+\.\-]', 'split');
-    gui.xCoordinates =  str2double(gui.strX3);
+    newStrX =  regexprep(strX,'[^0-9+\.\-]',' '); % Replaces all characters other than [0-9], "." and "-" with a space
+    newStr2X =  regexprep(newStrX,' {2,}',' '); % Replaces any double space with a single space
+    spaceBeginningX = regexprep(newStr2X,'^ ',''); % If there is a space at the very beginning of the stirng, this line deletes it
+    spaceEndX = regexprep(spaceBeginningX,' $',''); % If there is a space at the very end of the stirng, this line deletes it
+    gui.strX3 = regexp(spaceEndX,'[^0-9+\.\-]', 'split'); %Splits the string into a cell array based on the spaces that seperate the individual numbers needed
+    gui.xCoordinates =  str2double(gui.strX3); %Turns the string values into numbers
 end
 
 % The following function determines the y coordinates of the graph based on
@@ -239,17 +241,17 @@ end
 % into a 'double' (integers).
 function [ ] = yPositionInput (hObject, ~, ~) 
     global gui;
-    strY = get(hObject, 'string');
-    checkLetters2 = regexp(strY,'[^0-9+\.,\- ]','match');
+    strY = get(hObject, 'string'); % gets the string from the X posiiton edit box
+    checkLetters2 = regexp(strY,'[^0-9+\.,\- ]','match'); %checks whether there are any string values other than those listed
     if numel(checkLetters2) > 0
-            msgbox('X and Y Inputs may only contatin numbers, commas, periods, and spaces!', 'Input Error','error','modal')
+            msgbox('X and Y Inputs may only contatin numbers, commas, periods, negative signs, and spaces!', 'Input Error','error','modal')% Displays an error if there are any characters other than those listed
     end
-    newStrY =  regexprep(strY,'[^0-9+\.\-]',' ');
-    newStr2Y =  regexprep(newStrY,' {2,}',' ');
-    spaceBeginningY = regexprep(newStr2Y,'^ ','');
-    spaceEndY = regexprep(spaceBeginningY,' $','');
-    gui.strY3 = regexp(spaceEndY,'[^0-9+\.\-]', 'split');
-    gui.yCoordinates = str2double(gui.strY3);
+    newStrY =  regexprep(strY,'[^0-9+\.\-]',' ');% Replaces all characters other than [0-9], "." and "-" with a space
+    newStr2Y =  regexprep(newStrY,' {2,}',' ');% Replaces any double space with a single space
+    spaceBeginningY = regexprep(newStr2Y,'^ ','');% If there is a space at the very beginning of the stirng, this line deletes it
+    spaceEndY = regexprep(spaceBeginningY,' $','');% If there is a space at the very end of the stirng, this line deletes it
+    gui.strY3 = regexp(spaceEndY,'[^0-9+\.\-]', 'split');%Splits the string into a cell array based on the spaces that seperate the individual numbers needed
+    gui.yCoordinates = str2double(gui.strY3);%Turns the string values into numbers
 end
 
 % The following function is a callback of the graph push button; this
@@ -260,12 +262,12 @@ end
 % color and line/point style of the graph.
 function [ ] = graphCoordinates(~, ~, ~)
 global gui;
-    if numel(gui.xCoordinates) ~= numel(gui.yCoordinates)
-        msgbox('Must Have Same Amount of Elements in X and Y!', 'Input Error','error','modal')
+    if numel(gui.xCoordinates) ~= numel(gui.yCoordinates) %Checks whether the user inputed the same number of values in the x and y edit boxes
+        msgbox('Must Have Same Amount of Elements in X and Y!', 'Input Error','error','modal') %Displays a message if the user inputed a different amount of x values than y values
     else
-         gui.plotFinal = plot(gui.xCoordinates, gui.yCoordinates);
-         ColorSelect
-         LineSelect
+         gui.plotFinal = plot(gui.xCoordinates, gui.yCoordinates); %graphs the plot based on the arrays created in the functions xPositionInputs and yPositionInputs
+         ColorSelect %calls on the function ColorSelect to change the color of the gui.plotFinal based on buttongroup 3
+         LineSelect %calls on the function LineSelect to change the line/marker style of the gui.plotFinal based on buttongroup 2
     end
 end
 
@@ -278,15 +280,15 @@ end
 % and title edit boxes to their original string composition. 
 function [ ] = resetButtonPush(~,~)
     global gui;
-    hold off
-    gui.table = plot(0,0);
+    hold off %Clears the plot
+    gui.plotFinal = plot(0,0); 
     hold on
-    set([gui.xEdit, gui.yEdit], 'string', '');
-    gui.xCoordinates = [];
-    gui.yCoordinates = [];
-    set([gui.xAxis], 'String', 'X-Axis Name: ');
-    set([gui.yAxis], 'String', 'Y-Axis Name: ');
-    set([gui.Title], 'String', 'Title: ');
+    set([gui.xEdit, gui.yEdit], 'string', ''); %Sets the xEdit and yEdit boxes to have nothing in them
+    gui.xCoordinates = []; %Resets the collected data based on the yEdit box
+    gui.yCoordinates = []; %Resets the collected data based on the xEdit box
+    set([gui.xAxis], 'String', 'X-Axis Name: '); %Sets the X axis edit boxe to its original state
+    set([gui.yAxis], 'String', 'Y-Axis Name: ');%Sets the y axis edit boxe to its original state
+    set([gui.Title], 'String', 'Title: ');%Sets the title edit boxe to its original state
 end
 
 % This is a callback function gui.xAxis; it sets the graph's x axis label to the
