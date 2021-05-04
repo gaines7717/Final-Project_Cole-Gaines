@@ -19,8 +19,10 @@ global gui;
 % and the graph wil live. Also, line 11 will position the figure at a 
 % particular location on the screen
 gui.fig = figure();
-set(gcf,'position',[300,300,550,400]);
-            % gui.fig = figure( 'Renderer', 'painters', 'Position', [10 10 900 600]);
+            % When working on the project, I liked the figure popping up in a specific location, away from
+            % the matlab editor window; however, for purposes of the project, I commented these lines out
+                        % set(gcf,'position',[300,300,550,400]);
+                        % gui.fig = figure( 'Renderer', 'painters', 'Position', [10 10 900 600]);
 
 
 % Create a blank plot with center (0,0) by plotting (0,0) with no visible
@@ -30,7 +32,7 @@ set(gcf,'position',[300,300,550,400]);
 % include the user inputs. 
 gui.plotFinal = plot(0,0);
 hold on
- % set figure position on screen
+ % set plot position on figure
  set(gca, 'Units','normalized', 'Position',[.3 .35 .65 .60]);
 
 % Added gui.buttonGroup1 which doesn't have functionality; I liked the consistent asthetic it gave
@@ -77,10 +79,13 @@ gui.graphButton = uicontrol('style','push','units','normalized', 'position',[.72
 % The following code sets up the the global variables, edit boxes, and
 % callback functions to allow the user to change the xAxis label, yAxis
 % label, and the plot title.
+% Edit Box for the X-Axis name; also, this gui includes a callback to xAxisName
 gui.xAxis = uicontrol('style','edit','units','normalized','position',[.68 .14 .3 .05],...
     'fontsize',12, 'fontweight','bold','string','X-Axis Name: ','callback',{@xAxisName});
+% Edit Box for the Y-Axis name; also, this gui includes a callback to yAxisName
 gui.yAxis = uicontrol('style','edit','units','normalized','position',[.68 .19 .3 .05],...
     'fontsize',12, 'fontweight','bold','string','Y-Axis Name: ', 'callback',{@yAxisName});
+% Edit Box for the title name; also, this gui includes a callback to titleName
 gui.Title = uicontrol('style','edit','units','normalized','position',[.68 .24 .3 .05],...
     'fontsize',12, 'fontweight','bold','string','Title Name: ', 'callback',{@titleName});
 
