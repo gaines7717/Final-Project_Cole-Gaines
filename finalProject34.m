@@ -1,7 +1,7 @@
 function [ ] = finalProject34( )
 
 % Final Project: My final project is the default program. It is an
-% automated graphing application; it allows for a user input of 
+% automated graphing application; it allows for a user input for 
 % graphing color, graphing style, plot title and axis titles, a reset graph
 % and user input function, a quit function, etc. To use, enter coordinates
 % into the x and y edit boxes (each must have same amount of coordiantes
@@ -30,10 +30,7 @@ set(gcf,'position',[300,300,550,400]);
 % include the user inputs. 
 gui.plotFinal = plot(0,0);
 hold on
-            % set(gcf,'position',[300,300,550,400]);
-            % gui.table = set(gca,'xtick',[1 5 9 10]);
-            % gui.table = set(gca,'xtick',[]);
-            % gui.table = set(gca,'ytick',[]);
+ % set figure position on screen
  set(gca, 'Units','normalized', 'Position',[.3 .35 .65 .60]);
 
 % Added gui.buttonGroup1 which doesn't have functionality; I liked the consistent asthetic it gave
