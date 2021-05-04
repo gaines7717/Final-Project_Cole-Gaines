@@ -2,7 +2,7 @@
  
 BY COLE GAINES
 
-TOPIC APPROVAL: DEFAULT TOPIC
+TOPIC APPROVAL: DEFAULT TOPIC, ALREADY APPROVED
 
 INTRODUCTION
         For my final project, I created a graphing application (the default project suggested). This application uses user inputs (x and y position edit
